@@ -33,7 +33,7 @@ export default function Register () {
         } 
     return (
         <section className=" mt-8 ">
-            <h1 className=" text-center text-4xl text-primary">
+            <h1 className=" text-center text-4xl text-primary mb-3">
                 Registeer
             </h1>
             {userCreated && (

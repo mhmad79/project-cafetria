@@ -23,7 +23,7 @@ export default function Login () {
     } 
     return (
         <section className=" mt-8 ">
-        <h1 className=" text-center text-4xl text-primary" >
+        <h1 className=" text-center text-4xl mb-3 text-primary" >
             Login
         </h1>
       

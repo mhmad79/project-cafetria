@@ -4,7 +4,7 @@ import UserTaps from '../../components/layout/UserTaps/UserTaps'
 import IconRight from "../../components/layout/icons/Right";
 import Image from "next/image";
 import Link from "next/link";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export default function MenuItemsPage() {
 
@@ -34,7 +34,7 @@ export default function MenuItemsPage() {
         <Link
           className="button flex"
           href={'/menu-items/new'}>
-          <span>Crete new menu item</span>
+            <span>Crete new menu item</span>
           <IconRight />
         </Link>
       </div>
