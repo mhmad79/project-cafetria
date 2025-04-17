@@ -15,6 +15,8 @@ export default function NewMenuIremPage() {
 
     async function handleFormSubmit(ev, data) {
         ev.preventDefault();
+        console.log("🔵 Data before POST:", data);
+
         const saveingPromise = new Promise(async(resolve, reject) => {
             const response = await fetch('/api/menu-items', {
                 method: 'POST',
@@ -50,7 +52,7 @@ export default function NewMenuIremPage() {
     return (
         <section className=' mt-8'>
             <UserTaps isAdmin={true} />
-            <div className='max-w-md mx-auto mt-8'>
+            <div className='max-w-2xl mx-auto mt-8'>
                 <Link 
                     className='button'
                     href={'/menu-items'}>

@@ -6,18 +6,28 @@ import { authOptions } from "../auth/[...nextauth]/route";
 export async function PUT(req) {
     mongoose.connect(process.env.MONGO_URL);    
     const data = await req.json();
-    const session = await getServerSession(authOptions)
-    const email = session?.user?.email;
+    const {_id, name, image, ...otherUserInfo} = data;
 
-        await User.updateOne({email}, {
-            name: data.name,
-            image: data.image,
-            phone: data.phone    
-        }); 
-       
+    let filter = {}; 
 
-    return Response.json(true)
-} 
+    if(_id) {
+        filter = {_id};
+    } else {
+        const session = await getServerSession(authOptions);
+        const email = session?.user?.email;
+        filter = {email};
+    }
+
+    await User.updateOne(filter, {
+        name: data.name,
+        image: data.image,
+        phone: data.phone , 
+        admin: data.admin  
+    }); 
+        
+    return Response.json(true);
+}
+
 
 export async function GET() {
     mongoose.connect(process.env.MONGO_URL);

@@ -1,8 +1,22 @@
+'use client'
+import { useEffect, useState } from "react";
 import MenuItem from "../../menu/menu";
 import SectionHeaders from "../../SectionHeaders/SectionHeaders";
 import Image from "next/image";
 
 export default function HomeMenu () {
+    const [bestSellers, setBestSellers] = useState([])
+    
+    useEffect(() => {
+        fetch('/api/menu-items').then(res => {
+            res.json().then(menuItems => {
+                // استخدام slice لتحديد عدد معين من العناصر (مثلاً أول 5 عناصر)
+                const slicedItems = menuItems.slice(0, 3); 
+                setBestSellers(slicedItems);
+            })
+        })
+    }, [])
+
     return (
         <>
         <section className="">
@@ -16,15 +30,12 @@ export default function HomeMenu () {
             </div>
             <SectionHeaders 
                 subHeader={ 'Chek out'}
-                minHeader={'Menu'}
+                minHeader={'Our Best Sellers'}
             />
             <div className=" grid grid-cols-3 gap-4">
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
+                {bestSellers?.length > 0 && bestSellers.map(item => (
+                    <MenuItem {...item} />
+                ))}
             </div>
         </section>
         </>
