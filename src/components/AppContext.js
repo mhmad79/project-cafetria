@@ -7,17 +7,19 @@ import toast from 'react-hot-toast';
 export const CartContext = createContext({})
 
 export function cartProductPrice(cartProduct) {
-    let price = cartProduct.price
+    let price = cartProduct.price || 0;
     if(cartProduct.size) {
-        price += cartProduct.size.price;
+        price += cartProduct.size.price || 0;
     }
     if(cartProduct.extras?.length > 0 ) {
         for (const extra of cartProduct.extras) {
-            price += extra.price
+            price += extra.price || 0;
         }
     }
+    console.log(`Calculated price for product ${cartProduct.name}:`, price);
     return price;
 }
+
 
 export function AppProvider({children}) {
     const [cartProducts, setCartProducts]= useState([])
@@ -41,7 +43,9 @@ export function AppProvider({children}) {
             saveCartProductsToLocalStorage(newCartProducts)
             return newCartProducts
         });
-        toast.success('Product removed')
+        toast.success('Product removed', {
+            position: 'top-right'
+        })
     }
     function saveCartProductsToLocalStorage(cartProducts) {
         if(ls) {

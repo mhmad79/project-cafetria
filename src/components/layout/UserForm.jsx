@@ -2,7 +2,7 @@
 import { useState } from "react"
 import EditableImage from './../../components/layout/EditableImage/EditableImage'
 import { useProfile } from "./UseProfile/useProfile"
-
+import FormPhone from '../layout/form'
 
 export default function UserForm({user, onSave}) {
     const [userName, setUserName] = useState(user?.name || '')
@@ -10,6 +10,10 @@ export default function UserForm({user, onSave}) {
         const [phone, setPhone] = useState(user?.phone || '')
         const [admin, setAdmin] = useState(user?.admin || false)
         const {data:loggedInUserData} = useProfile();
+
+        function handelPhoneChange (propName, value) {
+            if (propName === 'phone')  setPhone(value)
+        }
     return(
            
         <div className=" flex gap-4">
@@ -38,12 +42,9 @@ export default function UserForm({user, onSave}) {
                 value={user.email} 
                 placeholder="email"
                 />
-            <label>Phone</label>
-            <input 
-                type='tel' 
-                placeholder="Phone number"
-                value={phone} 
-                onChange={ev => setPhone(ev.target.value)}
+           <FormPhone 
+                adrressProps={phone}
+                setAddressProp={handelPhoneChange}
             />
             {loggedInUserData.admin && (
                 <div>
