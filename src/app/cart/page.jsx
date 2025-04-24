@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useContext, useEffect, useState } from "react";
 import SectionHeaders from "../../components/SectionHeaders/SectionHeaders";
 import { CartContext, cartProductPrice } from "../../components/AppContext";
@@ -12,15 +12,17 @@ export default function CartPage() {
     const { cartProducts, removeCartProduct } = useContext(CartContext);
     const [details, setDetails] = useState({});
     const { data: profileData } = useProfile();
+    
+    console.log("cartP", cartProducts);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-          if (window.location.href.includes('canceled=1')) {
-            toast.error('Payment failed 😔');
-          }
+            if (window.location.href.includes('canceled=1')) {
+                toast.error('Payment failed 😔');
+            }
         }
-      }, []);
-    
+    }, []);
+
     useEffect(() => {
         if (profileData?.phone) {
             const { phone } = profileData;
@@ -29,9 +31,9 @@ export default function CartPage() {
         }
     }, [profileData]);
 
-    let subtotal
+    let subtotal = 0;
     for (const p of cartProducts) {
-        subtotal  += cartProductPrice(p);
+        subtotal += cartProductPrice(p);
     }
 
     function handleDetailsChange(name, value) {
@@ -40,42 +42,40 @@ export default function CartPage() {
 
     async function proceedToCheckout(ev) {
         ev.preventDefault();
-        // address and shopping cart products
-    
         const promise = new Promise((resolve, reject) => {
-          fetch('/api/checkout', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({
-                details,
-              cartProducts,
-            }),
-          }).then(async (response) => {
-            if (response.ok) {
-              resolve();
-              window.location = await response.json();
-            } else {
-              reject();
-            }
-          });
+            fetch('/api/checkout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    details,
+                    cartProducts,
+                }),
+            }).then(async (response) => {
+                if (response.ok) {
+                    const data = await response.json();
+                    resolve();
+                    window.location = data.url; // ✅ نستخدم الرابط الصحيح هنا
+                } else {
+                    reject();
+                }
+            });
         });
-    
+
         await toast.promise(promise, {
-          loading: 'Preparing your order...',
-          success: 'Redirecting to payment...',
-          error: 'Something went wrong... Please try again later',
-        })
-      }
-    
-      if (cartProducts?.length === 0) {
+            loading: 'Preparing your order...',
+            success: 'Redirecting to payment...',
+            error: 'Something went wrong... Please try again later',
+        });
+    }
+
+    if (cartProducts?.length === 0) {
         return (
-          <section className="mt-8 text-center">
-            <SectionHeaders mainHeader="Cart" />
-            <p className="mt-4">Your shopping cart is empty 😔</p>
-          </section>
+            <section className="mt-8 text-center">
+                <SectionHeaders mainHeader="Cart" />
+                <p className="mt-4">Your shopping cart is empty 😔</p>
+            </section>
         );
-      }
-    
+    }
 
     return (
         <section className="mt-8">
@@ -129,7 +129,7 @@ export default function CartPage() {
                     <div className="py-2 text-right pr-16">
                         <span className="text-gray-500">Subtotal:</span>
                         <span className="text-lg font-semibold pl-2">
-                            ${subtotal }
+                            ${subtotal}
                         </span>
                     </div>
                 </div>
@@ -140,7 +140,7 @@ export default function CartPage() {
                             addressProps={details}
                             setAddressProp={handleDetailsChange}
                         />
-                        <button type='submit'>Pay ${subtotal }</button>
+                        <button type='submit'>Pay ${subtotal}</button>
                     </form>
                 </div>
             </div>

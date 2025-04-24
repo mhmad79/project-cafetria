@@ -13,7 +13,7 @@ export async function POST(req) {
   const userEmail = session?.user?.email;
   
   console.log(userEmail);
-  
+  console.log('loking For product Id :', cartProducts._id)
   if (!userEmail) {
     console.error("❌ No email found in session");
     return Response.json({ error: 'User email not found in session' }, { status: 400 });
@@ -48,7 +48,7 @@ export async function POST(req) {
       if (size?.price) {
         productPrice += Number(size.price);
       } else {
-        console.error('❌ Size not found or invalid for product:', productInfo._id);
+        console.log('Looking for product IDs: ', cartProducts.map(p => p._id));
       }
     }
 
@@ -114,9 +114,8 @@ export async function POST(req) {
     ],
   });
 
-  return Response.json(stripeSession.url);
+  return Response.json({url: stripeSession.url});
 }
-
 
 
 
