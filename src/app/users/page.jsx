@@ -6,54 +6,62 @@ import Link from 'next/link'
 
 export default function UsersPage() {
 
-    const [users, setUsers] = useState([])
-    const {loading, data} = useProfile()
+    const [users, setUsers] = useState([]);
+    const { loading, data } = useProfile();
 
     useEffect(() => {
-        fetch('/api/users').then(response => {
-            response.json().then(users => {
-                setUsers(users)
-                console.log(users.name);
-                console.log(users.email);
-                
-            })
-        })
-    }, [])
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch('/api/users');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch users');
+                }
+                const users = await response.json();
+                setUsers(users);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
 
+        fetchUsers();
+    }, []);
 
-    if(loading) {
-        return 'Loading user info...';
+    if (loading) {
+        return <p>Loading user info...</p>;
     }
 
-    if(!data.admin) {
-        return 'Not an admin';
+    if (!data.admin) {
+        return <p>You are not an admin</p>;
     }
 
     return (
-        <section className=' mt-8 mx-auto max-w-2xl'>
+        <section className='mt-8 mx-auto max-w-2xl'>
             <UserTaps isAdmin={true} />
             <div className='mt-8'>
-                {users?.length > 0 && users.map(user => {
-                    return (
-
-                        <div className='bg-gray-100 rounded-lg mb-2 p-1 px-4 flex items-center gap-4'>
-                        <div className=' grid grid-cols-2 md:grid-cols-3 grow gap-4'>
-                            <div className='text-gray-900'>
-                                {!!user.name && (<span>{user.name}</span>)}
-                                {!user.name && (<span className=' italic'>No name</span>)}
+                {users.length > 0 ? (
+                    users.map(user => (
+                        <div className='bg-gray-100 rounded-lg mb-2 p-1 px-4 flex items-center gap-4' key={user._id}>
+                            <div className='grid grid-cols-2 md:grid-cols-3 grow gap-4'>
+                                <div className='text-gray-900'>
+                                    {user.name ? (
+                                        <span>{user.name}</span>
+                                    ) : (
+                                        <span className='italic'>No name</span>
+                                    )}
+                                </div>
+                                <span className='text-gray-500'>{user.email}</span>
                             </div>
-                            <span className=' text-gray-500'>{user.email}</span>
+                            <div>
+                                <Link className='button' href={`/users/${user._id}`}>
+                                    Edit
+                                </Link>
+                            </div>
                         </div>
-                        <div>
-                            <Link className='button' href={'/users/'+user._id}>
-                                Edite
-                            </Link>
-                        </div>
-                    </div>
-            )
-                })}
+                    ))
+                ) : (
+                    <p>No users found.</p>
+                )}
             </div>
-            
         </section>
-    )
+    );
 }

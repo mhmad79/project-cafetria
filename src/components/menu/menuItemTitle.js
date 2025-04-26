@@ -1,26 +1,33 @@
 import AddToCartButton from './addToCartButton'
-export default function MenuItemTitle({onAddToCart, ...item}) {
+
+export default function MenuItemTitle({ onAddToCart, ...item }) {
     const {
         image, name, description, price,
         sizes, extraIngredientPrices
-    } = item
+    } = item;
+
     const hasSizesOrExtras = sizes?.length > 0 || extraIngredientPrices?.length > 0;
+
+    // إضافة تحقق من الصورة لتجنب الأخطاء في حالة عدم وجود صورة
+    const itemImage = image || '/default-image.png'; // صورة افتراضية في حال عدم وجود صورة
+
     return (
         <div className='bg-gray-200 p-4 rounded-lg text-center hover:bg-white transition duration-500 ease-in-out hover:shadow-2xl hover:shadow-black'>
             <div className="text-center">
-                <img src={image} alt="pizza" className="max-h-24 block mx-auto" />
+                <img src={itemImage} alt={name} className="max-h-24 block mx-auto" />
             </div>
             <h4 className="font-semibold text-lg my-3">
-                {name}
+                {name || 'No name available'} {/* إذا كانت القيمة غير موجودة، تعرض رسالة بديلة */}
             </h4>
             <p className="text-gray-500 text-sm">
-                {description}
+                {description || 'No description available'} {/* إذا كانت القيمة غير موجودة، تعرض رسالة بديلة */}
             </p>
-        <AddToCartButton
-            image={image}
-            hasSizesOrExtras={hasSizesOrExtras}
-            onClick={onAddToCart}
-            price={price}/>
-    </div>   
+            <AddToCartButton
+                image={itemImage}
+                hasSizesOrExtras={hasSizesOrExtras}
+                onClick={onAddToCart}
+                price={price}
+            />
+        </div>
     )
 }
