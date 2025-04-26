@@ -5,7 +5,7 @@ import { CartContext, cartProductPrice } from "../../components/AppContext";
 import Image from "next/image";
 import Trash from "../../components/layout/icons/Trash";
 import FormPhone from "../../components/layout/form";
-import { useProfile } from "../../components/layout/UseProfile/useProfile";
+import { useProfile } from "../../components/layout/UseProfile/useProfilee";
 import { toast } from 'react-hot-toast';
 
 export default function CartPage() {

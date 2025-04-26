@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import UserTaps from '../../components/layout/UserTaps/UserTaps'
 import toast from 'react-hot-toast';
-import {useProfile} from '../../components/layout/UseProfile/useProfile'
+import {useProfile} from '../../components/layout/UseProfile/useProfilee'
 import DeleteButton from '../../components/DeleteButton';
 export default function CategoreisPage() {
 

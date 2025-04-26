@@ -6,7 +6,7 @@ import Link from 'next/link'
 import IconLeft from '../../../../components/layout/icons/left'
 import { redirect, useParams } from "next/navigation";
 import MenuItemForm from '../../../../components/layout/MenuItemForm/MenuItemForm'
-import { useProfile } from '../../../../components/layout/UseProfile/useProfile'
+import { useProfile } from '../../../../components/layout/UseProfile/useProfilee'
 import DeleteButton from '../../../../components/DeleteButton'
 
 export default function EditMenuItemPage() {

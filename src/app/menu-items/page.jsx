@@ -1,5 +1,5 @@
 'use client';
-import { useProfile } from '../../components/layout/UseProfile/useProfile'
+import { useProfile } from '../../components/layout/UseProfile/useProfilee'
 import UserTaps from '../../components/layout/UserTaps/UserTaps'
 import IconRight from "../../components/layout/icons/Right";
 import Image from "next/image";

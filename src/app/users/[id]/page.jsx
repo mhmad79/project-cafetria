@@ -1,6 +1,6 @@
 'use client'
 import UserTaps from "../../../components/layout/UserTaps/UserTaps";
-import { useProfile } from "../../../components/layout/UseProfile/useProfile";
+import { useProfile } from "../../../components/layout/UseProfile/useProfilee";
 import UserForm from "../../../components/layout/UserForm";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";

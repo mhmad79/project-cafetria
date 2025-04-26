@@ -1,6 +1,6 @@
 'use client';
 import { dbTimeForHuman } from '../libs/datetime';
-import {useProfile} from '../../components/layout/UseProfile/useProfile'
+import {useProfile} from '../../components/layout/UseProfile/useProfilee'
 import UserTaps from '../../components/layout/UserTaps/UserTaps'
 import Link from "next/link";
 import {useEffect, useState} from "react";

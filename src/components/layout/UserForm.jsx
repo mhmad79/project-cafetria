@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
 import EditableImage from './../../components/layout/EditableImage/EditableImage'
-import { useProfile } from "./UseProfile/useProfile"
+import { useProfile } from "./UseProfile/useProfilee"
 import FormPhone from '../layout/form'
 
 export default function UserForm({user, onSave}) {
