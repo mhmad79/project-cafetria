@@ -1,9 +1,9 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 import SectionHeaders from "../../components/SectionHeaders/SectionHeaders";
 import MenuItem from "../../components/menu/menu";
 
-export default function menuPage() {
+export default function MenuPage() { 
     const [categories, setCategories] = useState([]);
     const [menuItems, setMenuItems] = useState([]);
 
