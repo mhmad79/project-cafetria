@@ -6,14 +6,17 @@ export default function AddToCartButton({
     if (!hasSizesOrExtras) {
         return (
             <div className=' flying-button-parent mt-4'>
-                <FlyIngButton
-                    targetTop={'5%'}
-                    targetLeft={'95%'}
-                    src={image}>
-                    <div onClick={onClick}>
-                        Add to cart ${price}
-                    </div>
-                </FlyIngButton>
+            <div className="flying-button-parent mt-4">
+    <FlyIngButton
+        targetTop={'5%'}
+        targetLeft={'95%'}
+        src={image ? image : 'default-image.jpg'}> {/* استخدم صورة افتراضية هنا */}
+        <div onClick={onClick}>
+            Add to cart ${price}
+        </div>
+    </FlyIngButton>
+</div>
+
 
            </div>
         )
