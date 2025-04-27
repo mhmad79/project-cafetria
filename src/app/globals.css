@@ -53,3 +53,17 @@ div.tabs > *.active {
 .flying-button-parent button {
     @apply border-primary bg-primary text-white  rounded-full
 }
+
+@media (max-width: 768px) {
+    .logout-button {
+      padding: 0.5rem 1rem; 
+      font-size: 0.875rem; 
+    }
+  
+    .cart-badge {
+      font-size: 0.75rem; 
+      top: -1.5rem; 
+      right: -3rem;
+    }
+  }
+  
