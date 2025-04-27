@@ -17,23 +17,35 @@ export const authOptions = {
     }),
     CredentialsProvider({
       name: "Credentials",
-      id: "credentials",
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
+      async authorize(credentials) {
+        const { email, password } = credentials || {};
 
-        mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({ email });
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
+        try {
+          // محاولة الاتصال بـ MongoDB
+          await mongoose.connect(process.env.MONGO_URL);
+          
+          // البحث عن المستخدم في قاعدة البيانات
+          const user = await User.findOne({ email });
 
-        if (passwordOk) {
-          return user;
+          if (!user) return null; // إذا لم يكن المستخدم موجودًا، أعد null
+
+          // مقارنة كلمة السر
+          const passwordOk = bcrypt.compareSync(password, user.password);
+
+          // إذا كانت كلمة السر صحيحة، أعد المستخدم
+          if (passwordOk) {
+            return user;
+          }
+
+          return null; // إذا كانت كلمة السر خاطئة
+        } catch (error) {
+          console.error("Error in authorize:", error);
+          return null; // في حالة حدوث أي خطأ، أعد null
         }
-        return null;
       },
     }),
   ],
@@ -45,7 +57,3 @@ export const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-
-
-
-
