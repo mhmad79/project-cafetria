@@ -11,7 +11,7 @@ export async function POST(req) {
       region: 'eu-north-1',
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID_,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_,
       },
     });
     
