@@ -14,7 +14,7 @@ const connectToDatabase = async () => {
 };
 
 // إعدادات المصادقة
-export const authOptions = {
+ const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
