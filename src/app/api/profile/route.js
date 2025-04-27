@@ -4,7 +4,7 @@ import { User } from "../../models/User";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function PUT(req) {
-    mongoose.connect(process.env.MONGO_URL);    
+    mongoose.connect(process.env.DATABASE_URL);    
     const data = await req.json();
     const {_id, name, image, ...otherUserInfo} = data;
 
@@ -30,7 +30,7 @@ export async function PUT(req) {
 
 
 export async function GET() {
-    mongoose.connect(process.env.MONGO_URL);
+    mongoose.connect(process.env.DATABASE_URL);
     const session = await getServerSession(authOptions)
     const email = session?.user?.email;
     if(!email) {

@@ -10,7 +10,7 @@ import clientPromise from "../../../libs/mongodbConnect";
 // وظيفة للاتصال بقاعدة البيانات
 const connectToDatabase = async () => {
   if (mongoose.connection.readyState >= 1) return; 
-  await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.DATABASE_URL);
 };
 
 // إعدادات المصادقة

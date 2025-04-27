@@ -1,7 +1,7 @@
 import { Order } from "../../models/Order";
 import mongoose from "mongoose";
 
-const stripe = require('stripe')(process.env.STRIPE_SK);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req) {
   console.log('🔥 Incoming Stripe webhook request');
@@ -29,7 +29,7 @@ export async function POST(req) {
     console.log('💰 Payment status:', isPaid);
 
     try {
-      await mongoose.connect(process.env.MONGO_URL);
+      await mongoose.connect(process.env.DATABASE_URL);
       if (isPaid && orderId) {
         const result = await Order.updateOne({ _id: orderId }, { paid: true });
         console.log(`✅ Order ${orderId} marked as paid`);

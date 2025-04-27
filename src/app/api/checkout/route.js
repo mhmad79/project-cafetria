@@ -3,10 +3,10 @@ import { MenuItem } from "../../models/MenuItem";
 import { Order } from "../../models/Order";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-const stripe = require('stripe')(process.env.STRIPE_SK);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.DATABASE_URL);
 
   const { cartProducts, details } = await req.json();
   const session = await getServerSession(authOptions);

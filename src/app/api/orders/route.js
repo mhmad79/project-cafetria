@@ -5,7 +5,7 @@ import { Order } from "../../models/Order";
 import isAdmin from '../../libs/isAdmin'
 
 export async function GET(req) {
-    mongoose.connect(process.env.MONGO_URL);
+    mongoose.connect(process.env.DATABASE_URL);
   
     const session = await getServerSession(authOptions);
     const userEmail = session?.user?.email;
