@@ -7,11 +7,13 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "../../../libs/mongodbConnect";
 
+// وظيفة للاتصال بقاعدة البيانات
 const connectToDatabase = async () => {
-  if (mongoose.connection.readyState >= 1) return; // إذا كان هناك اتصال بالفعل
-  await mongoose.connect(process.env.MONGO_URL); // الاتصال بقاعدة البيانات
+  if (mongoose.connection.readyState >= 1) return; 
+  await mongoose.connect(process.env.MONGO_URL);
 };
 
+// إعدادات المصادقة
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -31,7 +33,7 @@ export const authOptions = {
         const { email, password } = credentials || {};
         if (!email || !password) return null;
 
-        await connectToDatabase(); // تأكد من الاتصال بقاعدة البيانات
+        await connectToDatabase(); 
 
         try {
           const user = await User.findOne({ email });
@@ -53,6 +55,8 @@ export const authOptions = {
   },
 };
 
+// إنشاء المعالج
 const handler = NextAuth(authOptions);
 
+// تصدير المسارات المطلوبة لـ Next.js
 export { handler as GET, handler as POST };
