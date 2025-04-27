@@ -7,6 +7,11 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "../../../libs/mongodbConnect";
 
+const connectToDatabase = async () => {
+  if (mongoose.connection.readyState >= 1) return; // إذا كان هناك اتصال بالفعل
+  await mongoose.connect(process.env.MONGO_URL); // الاتصال بقاعدة البيانات
+};
+
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -17,34 +22,28 @@ export const authOptions = {
     }),
     CredentialsProvider({
       name: "Credentials",
+      id: "credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const { email, password } = credentials || {};
+        if (!email || !password) return null;
+
+        await connectToDatabase(); // تأكد من الاتصال بقاعدة البيانات
 
         try {
-          // محاولة الاتصال بـ MongoDB
-          await mongoose.connect(process.env.MONGO_URL);
-          
-          // البحث عن المستخدم في قاعدة البيانات
           const user = await User.findOne({ email });
+          if (!user) return null;
 
-          if (!user) return null; // إذا لم يكن المستخدم موجودًا، أعد null
-
-          // مقارنة كلمة السر
           const passwordOk = bcrypt.compareSync(password, user.password);
+          if (!passwordOk) return null;
 
-          // إذا كانت كلمة السر صحيحة، أعد المستخدم
-          if (passwordOk) {
-            return user;
-          }
-
-          return null; // إذا كانت كلمة السر خاطئة
+          return user;
         } catch (error) {
-          console.error("Error in authorize:", error);
-          return null; // في حالة حدوث أي خطأ، أعد null
+          console.error("Error during authentication:", error);
+          return null;
         }
       },
     }),
