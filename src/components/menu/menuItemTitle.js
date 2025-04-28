@@ -16,10 +16,10 @@ export default function MenuItemTitle({ onAddToCart, ...item }) {
             <div className="text-center">
                 <img src={itemImage} alt={name} className="max-h-24 block mx-auto" />
             </div>
-            <h4 className="font-semibold text-lg my-3">
+            <h4 className="font-semibold text-sm my-3 sm:text-sm  md:text-lg">
                 {name || 'No name available'} {/* إذا كانت القيمة غير موجودة، تعرض رسالة بديلة */}
             </h4>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 line-clamp-3 md:line-clamp-none text-sm">
                 {description || 'No description available'} {/* إذا كانت القيمة غير موجودة، تعرض رسالة بديلة */}
             </p>
             <AddToCartButton

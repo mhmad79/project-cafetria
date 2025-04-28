@@ -23,7 +23,7 @@ export default function MenuPage() {
                     <div className="text-center">
                         <SectionHeaders minHeader={c.name} />
                     </div>
-                    <div className="grid grid-cols-3 gap-4 mt-4 mb-8">
+                    <div className="grid sm:grid-cols-2  lg:grid-cols-3 gap-4 mt-4 mb-8">
                         {menuItems
                             ?.filter(item => item.category === c._id)
                             .map(item => (
