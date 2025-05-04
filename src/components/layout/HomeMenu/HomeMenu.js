@@ -10,7 +10,6 @@ export default function HomeMenu () {
     useEffect(() => {
         fetch('/api/menu-items').then(res => {
             res.json().then(menuItems => {
-                // استخدام slice لتحديد عدد معين من العناصر (مثلاً أول 5 عناصر)
                 const slicedItems = menuItems.slice(0, 3); 
                 setBestSellers(slicedItems);
             })

@@ -16,9 +16,9 @@ export default function UserForm({user, onSave}) {
         }
     return(
            
-        <div className=" flex gap-4">
-        <div>
-            <div className=" p-2 rounded-lg relative max-w-[120px]">
+        <div className=" flex flex-col gap-4 sm:flex-row">
+        <div className=" sm: flex mb-5 justify-center  max-h-[120px]">
+            <div className=" p-2 sm:m-auto rounded-lg relative max-w-[120px]">
                 <EditableImage  setLink={setImage} link={image}/>
             </div>
         </div>

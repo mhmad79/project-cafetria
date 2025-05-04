@@ -46,22 +46,22 @@ export default function Header() {
         <div className={`${menuOpen ? 'block' : 'hidden'} w-full  md:block md:w-auto`} id="navbar-default">
           <ul className="font-medium flex lg:items-center md:items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
             <li>
-              <Link href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+              <Link onClick={() => setMenuOpen(false)} href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/menu" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+              <Link onClick={() => setMenuOpen(false)} href="/menu" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                 Menu
               </Link>
             </li>
             <li>
-              <Link href="/#about" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+              <Link onClick={() => setMenuOpen(false)} href="/#about" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/#contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+              <Link onClick={() => setMenuOpen(false)} href="/#contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                 Contact
               </Link>
             </li>
@@ -70,7 +70,7 @@ export default function Header() {
             {status === 'authenticated' && (
               <>
                 <li>
-                  <Link href="/profile" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+                  <Link onClick={() => setMenuOpen(false)} href="/profile" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                     Hello {userName}
                   </Link>
                 </li>
@@ -87,12 +87,12 @@ export default function Header() {
             {status === 'unauthenticated' && (
               <>
                 <li>
-                  <Link href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
+                  <Link onClick={() => setMenuOpen(false)}  href="/login"  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0">
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link href="/register" className="block py-2 px-3 bg-primary text-white rounded-full hover:bg-primary-dark md:bg-primary md:hover:bg-primary-dark md:text-white md:rounded-full">
+                  <Link onClick={() => setMenuOpen(false)} href="/register" className="block py-2 px-3 bg-primary text-white rounded-full hover:bg-primary-dark md:bg-primary md:hover:bg-primary-dark md:text-white md:rounded-full">
                     Register
                   </Link>
                 </li>

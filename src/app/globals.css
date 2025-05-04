@@ -67,3 +67,6 @@ div.tabs > *.active {
     }
   }
   
+  html {
+    scroll-behavior: smooth;
+  }
